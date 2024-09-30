@@ -1,7 +1,16 @@
 {
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "chai": "^5.1.1",
     "eslint": "^8.57.1",
-    "globals": "^15.9.0"
+    "globals": "^15.9.0",
+    "mocha": "^10.0.0",
+    "sinon": "^19.0.2"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.7"
   }
 }

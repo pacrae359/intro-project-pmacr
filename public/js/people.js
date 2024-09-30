@@ -40,8 +40,6 @@ async function updateperson( id, name, email, notes ) {
   await putdata( "people", { id, name, email, notes } )
 }
 
-
-
 /**
  * @returns { Promise }
  */
