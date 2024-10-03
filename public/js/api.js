@@ -38,8 +38,17 @@ export async function putdata( api, data ) {
     },
     body: JSON.stringify( data )
   }
-
-  const url = rooturl + api
-  await fetch( url, request )
+  let url
+  if('id' in  data){
+    url = rooturl + api + "/" + data.id
+  } else {
+    url = rooturl + api
+  }
+  console.log('Does it get here?', url)
+  const response = await fetch( url, request )
+  if(!response.ok){
+    const err = await response.text();
+    throw new Error('There was an error when updating data: ${response.status} ${err}');
+  }
 }
 

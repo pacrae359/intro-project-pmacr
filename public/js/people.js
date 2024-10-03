@@ -31,13 +31,14 @@ async function addperson( name, email, notes ) {
 
 /**
  * 
- * @param { string } id 
+ * @param { number } id 
  * @param { string } name 
  * @param { string } email 
  * @param { string } notes 
+ * @param { string } prevemail
  */
-async function updateperson( id, name, email, notes ) {
-  await putdata( "people", { id, name, email, notes } )
+async function updateperson( id, name, email, notes , prevemail) {
+  await putdata( "people", { id, name, email, notes , prevemail} )
 }
 
 /**
@@ -45,6 +46,7 @@ async function updateperson( id, name, email, notes ) {
  */
 async function gopeople() {
   const p = await fetchpeople()
+  console.log(p)
   cleartablerows( "peopletable" )
 
   for( const pi in p ) {
@@ -71,13 +73,26 @@ function addpersoninput() {
  * 
  */
 function editperson( ev ) {
-
   clearform( "personform" )
   const personrow = findancestorbytype( ev.target, "tr" )
   setformfieldvalue( "personform-name", personrow.person.name )
+  setformfieldvalue( "personform-email", personrow.person.email )
+  setformfieldvalue( "personform-notes", personrow.person.notes )
 
-  showform( "personform", () => console.log("submitted peopleform") )
-
+  showform( "personform", async () => {
+    // Call update person inside the callback of showform. Get the values of the form fields to use to update the details of the person on form submission.
+    try{
+      await updateperson(
+        personrow.person.id, 
+        getformfieldvalue( "personform-name" ), 
+        getformfieldvalue( "personform-email" ), 
+        getformfieldvalue( "personform-notes" ) , 
+        personrow.person.email)
+      await gopeople()
+    } catch (err) {
+      console.log('An error occured when editing: ',err)
+    }
+  } ) 
 }
 
 /**
