@@ -1,5 +1,3 @@
-
-
 import './people.js'
 import './form.js'
 

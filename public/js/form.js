@@ -17,7 +17,7 @@ document.addEventListener( "DOMContentLoaded", async function() {
       e.preventDefault()
 
       document.getElementById( "content" ).style.display = "block"
-      // @ts-ignore (it is part of HTML Element)
+      // @ts-ignore (it is part of HTML Element)#
       element.parentNode.style.display = "none"
 
       if( formsubmitcallback ) formsubmitcallback()

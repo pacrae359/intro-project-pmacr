@@ -35,6 +35,9 @@ export default [
         "while": { "after": false }, 
         "static": { "after": false } } } ],
     },
+    env: {
+      node: true,
+    }
   },
   pluginJs.configs.recommended,
 ]
