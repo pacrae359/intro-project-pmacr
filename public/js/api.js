@@ -46,8 +46,15 @@ export async function putdata( api, data ) {
   }
   const response = await fetch( url, request )
   if(!response.ok){
-    const err = await response.text();
-    throw new Error('There was an error when updating data: ${response.status} ${err}');
+    const conType = response.headers.get("Content-Type")
+
+    if(conType && conType.includes("text/plain")){
+      const err = await response.text()
+      alert(err);
+    } else {
+      const err = await response.json();
+      throw new Error(`There was an error when updating data: ${response.status} ${err.error}`);
+    }
   }
 }
 
@@ -64,6 +71,6 @@ export async function deletedata( api, data ){
   const response = await fetch( url, request )
   if(!response.ok){
     const err = await response.text();
-    throw new Error('There was an error when updating data: ${response.status} ${err}');
+    throw new Error(`There was an error when updating data: ${response.status} ${err}`);
   }
 }

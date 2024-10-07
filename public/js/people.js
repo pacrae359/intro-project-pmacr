@@ -45,7 +45,6 @@ async function updateperson( id, name, email, notes , prevemail) {
  */
 async function gopeople() {
   const p = await fetchpeople()
-  console.log(p)
   cleartablerows( "peopletable" )
 
   for( const pi in p ) {
