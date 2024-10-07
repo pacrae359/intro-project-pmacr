@@ -44,7 +44,6 @@ export async function putdata( api, data ) {
   } else {
     url = rooturl + api
   }
-  console.log('Does it get here?', url)
   const response = await fetch( url, request )
   if(!response.ok){
     const err = await response.text();
@@ -52,3 +51,19 @@ export async function putdata( api, data ) {
   }
 }
 
+export async function deletedata( api, data ){
+  const request = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify( data )
+  }
+  let url
+  url = rooturl + api + "/" + data.id
+  const response = await fetch( url, request )
+  if(!response.ok){
+    const err = await response.text();
+    throw new Error('There was an error when updating data: ${response.status} ${err}');
+  }
+}

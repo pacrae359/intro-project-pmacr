@@ -1,5 +1,5 @@
 
-import { getdata, putdata } from "./api.js"
+import { getdata, putdata, deletedata } from "./api.js"
 import { showform, getformfieldvalue, setformfieldvalue, clearform, gettablebody, cleartablerows } from "./form.js"
 import { findancestorbytype } from "./dom.js"
 
@@ -89,9 +89,23 @@ function editperson( ev ) {
         personrow.person.email)
       await gopeople()
     } catch (err) {
-      console.log('An error occured when editing: ',err)
+      console.log( "An error occured when editing: ", err )
     }
-  } ) 
+  } )
+}
+
+/**
+ * 
+ */
+async function removeperson( ev ) {
+  const personrow = findancestorbytype( ev.target, "tr" )
+  const id = personrow.person.id
+  const name = personrow.person.name
+  const confirmationStr = ("Are you sure you would like to delete this user: "+ name)
+  if( confirm( confirmationStr ) ){
+    await deletedata( "people", { id, name } )
+    await gopeople()
+  }
 }
 
 /**
@@ -112,9 +126,15 @@ export function addpersondom( person ) {
   newrow.person = person
   cells[ 0 ].innerText = person.name
 
+  const deletebutton = document.createElement( "button" )
+  deletebutton.textContent = "Delete"
+  deletebutton.addEventListener( "click", removeperson )
+  deletebutton.className = "deleteButton"
+
   const editbutton = document.createElement( "button" )
   editbutton.textContent = "Edit"
   editbutton.addEventListener( "click", editperson )
 
   cells[ 8 ].appendChild( editbutton )
+  cells[ 8 ].appendChild( deletebutton )
 }

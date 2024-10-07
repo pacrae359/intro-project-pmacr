@@ -74,6 +74,14 @@ button {
   transition: background-color 0.3s;
 }
 
+.deleteButton {
+  background-color: #a40000 !important; /* Use brand color #006ab4 for buttons */
+}
+
+.deleteButton:hover { 
+  background-color: #000000 !important; /* Use brand color #006ab4 for buttons */
+}
+
 button:hover {
   background-color: #38d430; /* Use brand color #38d430 for button hover */
 }
