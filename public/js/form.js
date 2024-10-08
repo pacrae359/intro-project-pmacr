@@ -2,7 +2,6 @@
 
 let formsubmitcallback
 document.addEventListener( "DOMContentLoaded", async function() {
-
   const closeelements = document.querySelectorAll( ".close" )
   closeelements.forEach( element => {
     element.addEventListener( "click", ( e ) => {
@@ -38,7 +37,7 @@ function closallforms() {
 
 /**
  * Show form by id name
- * @param { string } formid 
+ * @param { string } formid
  */
 export function showform( formid, onsubmit ) {
   document.getElementById( "content" ).style.display = "none"
@@ -50,8 +49,8 @@ export function showform( formid, onsubmit ) {
 }
 
 /**
- * 
- * @param { string } formitemid 
+ *
+ * @param { string } formitemid
  */
 export function getformfieldvalue( formitemid ) {
   // @ts-ignore (it does!)
@@ -59,7 +58,7 @@ export function getformfieldvalue( formitemid ) {
 }
 
 /**
- * 
+ *
  * @param { string } formitemid
  * @param { string } value
  */
@@ -70,8 +69,8 @@ export function setformfieldvalue( formitemid, value ) {
 
 
 /**
- * 
- * @param { string } formid 
+ *
+ * @param { string } formid
  */
 export function clearform( formid ) {
   const form = document.getElementById( formid )
@@ -81,7 +80,7 @@ export function clearform( formid ) {
 }
 
 /**
- * 
+ *
  * @param { string } formid
  * @returns { HTMLTableSectionElement }
  */
@@ -90,15 +89,14 @@ export function gettablebody( formid ) {
 }
 
 /**
- * 
- * @param { string } formid 
+ *
+ * @param { string } formid
  */
 export function cleartablerows( formid ) {
-  
   const table = document.getElementById( formid )
 
   const rows = table.getElementsByTagName( "tr" )
-  for( let i = rows.length - 1; i > 0; i-- ) {
+  for( let i = rows.length - 1; 0 < i; i-- ) {
     // @ts-ignore
     table.deleteRow( i )
   }

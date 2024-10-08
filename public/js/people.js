@@ -4,14 +4,13 @@ import { showform, getformfieldvalue, setformfieldvalue, clearform, gettablebody
 import { findancestorbytype } from "./dom.js"
 
 document.addEventListener( "DOMContentLoaded", async function() {
-
   document.getElementById( "addperson" ).addEventListener( "click", addpersoninput )
   await gopeople()
 } )
 
 
 /**
- * 
+ *
  * @returns { Promise< object > }
  */
 async function fetchpeople() {
@@ -29,14 +28,14 @@ async function addperson( name, email, notes ) {
 }
 
 /**
- * 
- * @param { number } id 
- * @param { string } name 
- * @param { string } email 
- * @param { string } notes 
+ *
+ * @param { number } id
+ * @param { string } name
+ * @param { string } email
+ * @param { string } notes
  * @param { string } prevemail
  */
-async function updateperson( id, name, email, notes , prevemail) {
+async function updateperson( id, name, email, notes , prevemail ) {
   await putdata( "people", { id, name, email, notes , prevemail} )
 }
 
@@ -53,22 +52,20 @@ async function gopeople() {
 }
 
 /**
- * 
+ *
  */
 function addpersoninput() {
-
   clearform( "personform" )
   showform( "personform", async () => {
-
-    await addperson( getformfieldvalue( "personform-name" ), 
-                      getformfieldvalue( "personform-email" ), 
-                      getformfieldvalue( "personform-notes" ) )
+    await addperson( getformfieldvalue( "personform-name" ),
+      getformfieldvalue( "personform-email" ),
+      getformfieldvalue( "personform-notes" ) )
     await gopeople()
   } )
 }
 
 /**
- * 
+ *
  */
 function editperson( ev ) {
   clearform( "personform" )
@@ -79,40 +76,39 @@ function editperson( ev ) {
 
   showform( "personform", async () => {
     // Call update person inside the callback of showform. Get the values of the form fields to use to update the details of the person on form submission.
-    try{
+    try {
       await updateperson(
-        personrow.person.id, 
-        getformfieldvalue( "personform-name" ), 
-        getformfieldvalue( "personform-email" ), 
-        getformfieldvalue( "personform-notes" ) , 
-        personrow.person.email)
+        personrow.person.id,
+        getformfieldvalue( "personform-name" ),
+        getformfieldvalue( "personform-email" ),
+        getformfieldvalue( "personform-notes" ) ,
+        personrow.person.email )
       await gopeople()
-    } catch (err) {
+    } catch ( err ) {
       console.log( "An error occured when editing: ", err )
     }
   } )
 }
 
 /**
- * 
+ *
  */
 async function removeperson( ev ) {
   const personrow = findancestorbytype( ev.target, "tr" )
   const id = personrow.person.id
   const name = personrow.person.name
-  const confirmationStr = ("Are you sure you would like to delete this user: "+ name)
-  if( confirm( confirmationStr ) ){
+  const confirmationStr = ( "Are you sure you would like to delete this user: "+ name )
+  if( confirm( confirmationStr ) ) {
     await deletedata( "people", { id, name } )
     await gopeople()
   }
 }
 
 /**
- * 
+ *
  * @param { object } person
  */
 export function addpersondom( person ) {
-
   const table = gettablebody( "peopletable" )
   const newrow = table.insertRow()
 

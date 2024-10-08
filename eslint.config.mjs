@@ -7,7 +7,10 @@ export default [
     languageOptions: {
       sourceType: "commonjs",
       ecmaVersion: "latest",
-      globals: globals.browser,
+      globals: { 
+        ...globals.browser,
+        ...globals.mocha
+      },
     },
     rules: {
       "require-atomic-updates": "error",
@@ -35,9 +38,12 @@ export default [
         "while": { "after": false }, 
         "static": { "after": false } } } ],
     },
-    env: {
-      node: true,
-    }
   },
   pluginJs.configs.recommended,
+  { files: ["public/**/*.js"],
+    languageOptions: {
+      sourceType: "module",
+      ecmaVersion: "latest",
+    },
+  }
 ]

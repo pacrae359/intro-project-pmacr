@@ -1,12 +1,11 @@
-
-
 const rooturl = `${window.location.protocol}//${window.location.host}/api/`
 
 /**
  * Wrapper for all API GET requests
- * @param { string } api 
+ * @param { string } api
  * @returns { Promise< object > }
  */
+/* eslint-disable no-undef */
 export async function getdata( api ) {
   try {
     const url = rooturl + api
@@ -19,8 +18,8 @@ export async function getdata( api ) {
     } else {
       throw new Error( `Request failed with status: ${response.status}` )
     }
-  } catch (error) {
-    console.error( 'Error fetching data:', error.message )
+  } catch ( error ) {
+    console.error( "Error fetching data:", error.message )
   }
 }
 
@@ -39,26 +38,25 @@ export async function putdata( api, data ) {
     body: JSON.stringify( data )
   }
   let url
-  if('id' in  data){
+  if( "id" in  data ) {
     url = rooturl + api + "/" + data.id
   } else {
     url = rooturl + api
   }
   const response = await fetch( url, request )
-  if(!response.ok){
-    const conType = response.headers.get("Content-Type")
+  if( !response.ok ) {
+    const conType = response.headers.get( "Content-Type" )
 
-    if(conType && conType.includes("text/plain")){
+    if( conType && conType.includes( "text/plain" ) ) {
       const err = await response.text()
-      alert(err);
+      alert( err )
     } else {
-      const err = await response.json();
-      throw new Error(`There was an error when updating data: ${response.status} ${err.error}`);
+      const err = await response.json()
+      throw new Error( `There was an error when updating data: ${response.status} ${err.error}` )
     }
   }
 }
-
-export async function deletedata( api, data ){
+export async function deletedata( api, data ) {
   const request = {
     method: "DELETE",
     headers: {
@@ -66,11 +64,11 @@ export async function deletedata( api, data ){
     },
     body: JSON.stringify( data )
   }
-  let url
-  url = rooturl + api + "/" + data.id
+  const url = rooturl + api + "/" + data.id
   const response = await fetch( url, request )
-  if(!response.ok){
-    const err = await response.text();
-    throw new Error(`There was an error when updating data: ${response.status} ${err}`);
+  if( !response.ok ) {
+    const err = await response.text()
+    throw new Error( `There was an error when updating data: ${response.status} ${err}` )
   }
 }
+/* eslint-enable no-undef */
