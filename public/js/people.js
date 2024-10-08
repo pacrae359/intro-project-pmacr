@@ -122,14 +122,16 @@ export function addpersondom( person ) {
   cells[ 0 ].innerText = person.name
 
   const deletebutton = document.createElement( "button" )
-  deletebutton.textContent = "Delete"
+  deletebutton.textContent = "Delete Person"
   deletebutton.addEventListener( "click", removeperson )
   deletebutton.className = "deleteButton"
+  deletebutton.style.cssText = "float: right;"
 
   const editbutton = document.createElement( "button" )
-  editbutton.textContent = "Edit"
+  editbutton.textContent = "Edit Person"
   editbutton.addEventListener( "click", editperson )
-
-  cells[ 8 ].appendChild( editbutton )
+  editbutton.style.cssText = "float: right;"
   cells[ 8 ].appendChild( deletebutton )
+  cells[ 8 ].appendChild( editbutton )
+  
 }
